@@ -6,7 +6,6 @@ const porta = 3000;
 app.get('/', (req, res) => {
     const { idade, sexo, salario_base, anoContratacao, matricula } = req.query;
 
-    // Verificações de dados
     const idadeNum = parseInt(idade);
     const salario = parseFloat(salario_base);
     const ano = parseInt(anoContratacao);
@@ -22,11 +21,11 @@ app.get('/', (req, res) => {
         return res.send('<h2>Dados inválidos. Verifique se preencheu tudo corretamente.</h2>');
     }
 
-    // Calcula tempo de empresa
+
     const tempoEmpresa = new Date().getFullYear() - ano;
     const maisDe10Anos = tempoEmpresa > 10;
 
-    // Regras da tabela
+
     let reajuste = 0, desconto = 0, acrescimo = 0;
 
     if (idadeNum >= 18 && idadeNum <= 39) {
@@ -48,9 +47,9 @@ app.get('/', (req, res) => {
             { reajuste = 0.17; desconto = 17.00; acrescimo = 12.00; }
     }
 
-    // Cálculo do salário reajustado
+
     let novoSalario = salario + (salario * reajuste);
-    //novoSalario += maisDe10Anos ? acrescimo : -desconto;
+
     if (maisDe10Anos) {
         novoSalario += acrescimo;
     } else {
